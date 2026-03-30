@@ -13,7 +13,12 @@ app.post("/webhook", async (req, res) => {
   const customer = payload?.data?.customer;
   const message = payload?.data?.message;
 
-  if (!customer || !message) return;
+  console.log("Webhook received:", JSON.stringify(payload));
+
+  if (!customer || !message) {
+    console.log("Missing customer or message — skipping insert");
+    return;
+  }
 
   const record = {
     contact_phone: customer.channel_phone_number,
@@ -27,16 +32,32 @@ app.post("/webhook", async (req, res) => {
     raw_payload: payload
   };
 
-  await fetch(`${SUPABASE_URL}/rest/v1/conversations`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`,
-      "Prefer": "return=minimal"
-    },
-    body: JSON.stringify(record)
-  });
+  console.log("Inserting record:", JSON.stringify(record));
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/conversations`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(record)
+    });
+
+    const responseText = await response.text();
+    console.log("Supabase response status:", response.status);
+    console.log("Supabase response body:", responseText);
+
+    if (response.ok) {
+      console.log("✅ Row inserted successfully!");
+    } else {
+      console.log("❌ Insert failed!");
+    }
+  } catch (err) {
+    console.log("❌ Fetch error:", err.message);
+  }
 });
 
 app.listen(3000, () => console.log("Webhook receiver running!"));
