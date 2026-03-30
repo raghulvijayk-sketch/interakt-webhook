@@ -27,7 +27,7 @@ app.post("/webhook", async (req, res) => {
     raw_payload: payload
   };
 
-  await fetch(`${https://hkjfddnwlaelicjmmsju.supabase.com}/rest/v1/conversations`, {
+  await fetch(`${https://hkjfddnwlaelicjmmsju.supabase.com}/rest/v1/conversations`}, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
