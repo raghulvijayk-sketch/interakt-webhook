@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL_HERE";
-const SUPABASE_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+const SUPABASE_URL = "https://hkjfddnwlaelicjmmsju.supabase.com";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhramZkZG53bGFlbGljam1tc2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2MTQsImV4cCI6MjA5MDQzMTYxNH0.ONfiugbnKxy32vE-QNh1ZXV_VhagsYzXq1k-sAM1RUg";
 
 app.post("/webhook", async (req, res) => {
   res.status(200).json({ success: true });
@@ -27,12 +27,12 @@ app.post("/webhook", async (req, res) => {
     raw_payload: payload
   };
 
-  await fetch(`${SUPABASE_URL}/rest/v1/conversations`, {
+  await fetch(`${https://hkjfddnwlaelicjmmsju.supabase.com}/rest/v1/conversations`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`,
+      "apikey": sb_publishable_-Agb5zfYLiCFKVF8MYge0Q_vlxHSIGo,
+      "Authorization": `Bearer ${sb_publishable_-Agb5zfYLiCFKVF8MYge0Q_vlxHSIGo}`,
       "Prefer": "return=minimal"
     },
     body: JSON.stringify(record)
